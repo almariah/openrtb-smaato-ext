@@ -1,0 +1,118 @@
+// Protocol version: v.2.5.0
+syntax = "proto2";
+import "openrtb.proto";
+option java_outer_classname = "SmaatoExt";
+package com.adalloc.openrtb;
+
+// Protocol buffer for Smaato Exchange OpenRTB extensions specification.
+
+// Smaato Exchange extensions for the Imp object.
+message ImpExt {
+  // Custom field with following values:
+  // 1 if the banner size to be treated strictly
+  // 0 (default value) if the DSP can return ads smaller than banner size
+  optional bool strictbannersize = 1;
+}
+
+extend com.google.openrtb.BidRequest.Imp {
+  // Extension key for Smaato Imp.ext.
+  optional ImpExt imp = 2009;
+}
+
+// Smaato Exchange extensions for the BidRequest object.
+message BidRequestExt {
+  // Unique device id container
+  optional UniqueDeviceIdContainer udi = 1;
+
+  // Denotes whether the device is making the request using the Opera mini browser.
+  optional bool operaminibrowser = 2;
+
+  // Denotes mobile carrier name
+  optional string carriername = 3;
+
+  // The value of the transmitted x-uidh header (from Verizon),
+  // null if no header has been transmitted.
+  optional string x_uidh = 4;
+
+  // refers to the Children's Online Privacy Protection Act
+  // If 1: then the request falls under the COPPA regulations
+  // If 0: then the request does not fall under the COPPA regulations
+  optional bool coppa = 5;
+
+  message UniqueDeviceIdContainer {
+    // AndroidId md5 hashed (Android)
+    optional string androidid = 1;
+
+    // md5 hashed android id. Only if provided by the publisher as such.
+    optional string androididmd5 = 2;
+
+    // sha1 hashed android id. Only if provided by the publisher as such.
+    optional string androididsha1 = 3;
+
+    // Hardware ID. As of today only commonly used on Android. Always raw.
+    optional string imei = 4;
+
+    // md5 hashed imei. Only if provided by the publisher as such.
+    optional string imeimd5 = 5;
+
+    // sha1 hashed imei. Only if provided by the publisher as such.
+    optional string imeisha1 = 6;
+
+    // md5 hash of the iOS UDID. Only if udid is provided.
+    optional string udidmd5 = 7;
+
+    // sha1 hash of the iOS UDID. Only if udid is provided.
+    optional string udidsha1 = 8;
+
+    // md5 hash of the string representation (uppercase separated by colons) of
+    // the WiFi mac address
+    optional string macmd5 = 9;
+
+    //sha1 hash of the string representation of the WiFi mac address
+    optional string macsha1 = 10;
+
+    // sha1 hash of the byte array of the WiFi mac address (iOS) or sha1 of the
+    // Android Id string. Raw.
+    optional string odin = 11;
+
+    // Open-source identification scheme created by marketing company Appsfire.
+    optional string openudid = 12;
+
+    // Privacy aware unique identifier on iOS6 and above. Replacement for UDID.
+    // Raw, never to be hashed.
+    optional string idfa = 13;
+
+    // Privacy aware unique identifier on iOS6 and above. Replacement for UDID.
+    // MD5 hashed for Millenial Media.
+    optional string idfamd5 = 14;
+
+    // Privacy aware unique identifier on iOS6 and above. Replacement for UDID.
+    // SHA1 hashed for Millenial Media.
+    optional string idfasha1 = 15;
+
+    // Opt-in for IDFA (Apple Advertising Id).
+    // Values: 1=tracking allowed, 0=tracking forbidden
+    optional bool idfatracking = 16;
+
+    // Privacy aware unique identifier on Android. Replaces Android ID
+    optional string googleadid = 17;
+
+    // Opt-Out for googleadid
+    // Values: 0=tracking allowed, 1=tracking forbidden
+    optional bool googlednt = 18;
+
+    // Device ID sent from BlackBerry 10 SDKs.
+    optional string bbid = 19;
+
+    // Device ID sent from WindowsPhone.
+    optional string wpid = 20;
+
+    // Cookie ID set by the JS AdTag. Unique per device and inventory.
+    optional string atuid = 21;
+  }
+}
+
+extend com.google.openrtb.BidRequest {
+  // Extension key for Smaato BidRequest.ext.
+  optional BidRequestExt bid_request = 2005;
+}
