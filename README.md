@@ -5,7 +5,8 @@ Overview
 --------
 
 This library supports Smaato OpenRTB (JSON) extensions for [Google OpenRTB](https://github.com/google/openrtb) (protobuf). It has implementation for serialization and deserialization of Smaato latest bid request
-extensions (JSON). [You can find the extensions on Smaato's DSP Integration site Resources](https://wiki.smaato.com/pages/viewpage.action?pageId=852061).
+extensions (JSON). [You can find the extensions on Smaato's DSP Integration site Resources](https://wiki.smaato.com/pages/viewpage.action?pageId=852061). It is useful for any DSP to
+integrate with Smaato ad-exchange.
 
 
 Usage
